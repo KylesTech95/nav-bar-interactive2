@@ -10,7 +10,13 @@ let isthree = (num)=>{
 return num%3==0
 }
 let navbox = document.getElementById('nav-actual2')
+let hamburger = () => {
+    [...bars].map((el,i)=>{
+        let id = +el.classList[1].slice(1)
+        el.style = `transform:${rev[id-1]};transition: .3s ease;`
+    })
 
+}
 //event listener - click
 let clickFunc = (c) => {btn.addEventListener('click',(e)=>{
 c++
@@ -38,10 +44,7 @@ else if(c%2!=0 && isthree(c)){
     })
 }
 else{
-    [...bars].map((el,i)=>{
-        let id = +el.classList[1].slice(1)
-        el.style = `transform:${rev[id-1]};transition: .3s ease;`
-    })
+    hamburger()
 }
 })
 }
@@ -63,10 +66,7 @@ const targetElements = (element,element1,mouse) => {
         navcon.classList.add('nav-container2')
         navcon.classList.remove('active')
         clickFunc(count=0)
-        return [...bars].map((el,i)=>{
-            let id = +el.classList[1].slice(1)
-            el.style = `transform:${rev[id-1]};transition:.3s ease;`
-        })
+        hamburger()
         
     }
     else{
@@ -78,5 +78,14 @@ window.addEventListener('click',(e)=>{
     if(navcon.classList[0]=='active')
     {
     targetElements(navbox,btn,e)
+    }
+})
+
+window.addEventListener('resize',(e)=>{
+    if(e.target.innerWidth>850){
+        navcon.classList.add('nav-container2')
+        navcon.classList.remove('active')
+        clickFunc(count=0)
+        hamburger()
     }
 })
